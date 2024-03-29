@@ -1,5 +1,6 @@
 package com.example.demo;
 
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,6 +16,11 @@ public class FoodService {
     @Transactional(readOnly = true)
     public List<Food> getFoods(){
         return foodRepository.findAll();
+    }
+
+    @Transactional(readOnly = true)
+    public Food getFood(Long id){
+        return foodRepository.findById(id).orElseThrow(EntityNotFoundException::new);
     }
 
 }
