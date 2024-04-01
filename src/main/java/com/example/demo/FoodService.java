@@ -23,4 +23,8 @@ public class FoodService {
         return foodRepository.findById(id).orElseThrow(EntityNotFoundException::new);
     }
 
+    public Food postFood(Food food) {
+        return foodRepository.save(food);
+    }
+
 }
