@@ -2,7 +2,6 @@ package com.example.demo.controller;
 
 import com.example.demo.constant.Allergy;
 import com.example.demo.dto.FoodDto;
-import com.example.demo.entity.Food;
 import com.example.demo.service.FoodService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -51,14 +50,14 @@ public class FoodController {
     }
 
     @PostMapping("/api/foods")
-    public ResponseEntity<Food> postFood(@RequestBody FoodDto foodDto){
-        Food newFood = foodService.postFood(foodDto);
-        return new ResponseEntity<>(newFood, HttpStatus.CREATED);
+    public ResponseEntity<Void> postFood(@RequestBody FoodDto foodDto){
+        foodService.postFood(foodDto);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    @PutMapping("/api/foods/{id}")
-    public ResponseEntity<Void> putFood(@PathVariable Long id, @RequestBody FoodDto foodDto) {
-        foodService.updateFood(foodDto,id);
+    @PutMapping("/api/foods/{foodId}")
+    public ResponseEntity<Void> putFood(@PathVariable Long foodId, @RequestBody FoodDto foodDto) {
+        foodService.updateFood(foodDto,foodId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

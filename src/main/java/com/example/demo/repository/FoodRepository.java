@@ -23,5 +23,6 @@ public interface FoodRepository extends JpaRepository<Food,Long> {
             @Param("maxCalories") Integer maxCalories,
             @Param("allergies") List<Allergy> allergies);
 
+    List<Food> findAllByRestaurantId(Long restaurantId);
 
 }

@@ -2,11 +2,10 @@ package com.example.demo.service;
 
 import com.example.demo.constant.Allergy;
 import com.example.demo.dto.FoodDto;
-import com.example.demo.dto.SubFoodDto;
 import com.example.demo.entity.Food;
-import com.example.demo.entity.SubFood;
+import com.example.demo.entity.Restaurant;
 import com.example.demo.repository.FoodRepository;
-import com.example.demo.repository.SubFoodRepository;
+import com.example.demo.repository.RestaurantRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -21,7 +20,7 @@ import java.util.List;
 public class FoodService {
 
     private final FoodRepository foodRepository;
-    private final SubFoodRepository subFoodRepository;
+    private final RestaurantRepository restaurantRepository;
 
     @Transactional(readOnly = true)
     public List<FoodDto> getAllByPriceRangeAndAllergies(Integer minPrice, Integer maxPrice,
@@ -30,7 +29,7 @@ public class FoodService {
         List<Food> foodList =  foodRepository.findAllByPriceRangeAndByCaloriesRangeAndAllergiesNotContained(minPrice, maxPrice, minCalories, maxCalories,allergies);
         List<FoodDto> foodDtoList = new ArrayList<>();
         for (Food food : foodList) {
-            FoodDto foodDto = FoodDto.convertDTO(food);
+            FoodDto foodDto = FoodDto.toDto(food);
             foodDtoList.add(foodDto);
         }
         return foodDtoList;
@@ -39,7 +38,7 @@ public class FoodService {
     @Transactional(readOnly = true)
     public FoodDto getFood(Long foodId) {
         Food food = foodRepository.findById(foodId).orElseThrow(EntityNotFoundException::new);
-        FoodDto foodDto = FoodDto.convertDTO(food);
+        FoodDto foodDto = FoodDto.toDto(food);
         return foodDto;
     }
 
@@ -48,31 +47,22 @@ public class FoodService {
         List<Food> foodList = foodRepository.findAll();
         List<FoodDto> foodDtoList = new ArrayList<>();
         for (Food food : foodList) {
-            FoodDto foodDto = FoodDto.convertDTO(food);
+            FoodDto foodDto = FoodDto.toDto(food);
             foodDtoList.add(foodDto);
         }
         return foodDtoList;
     }
 
     public Food postFood(FoodDto foodDto) {
-        Food food = new Food(foodDto.getName(),foodDto.getCategory(),foodDto.getPrice(),foodDto.getCalorie(),foodDto.getAllergyList());
+        Restaurant restaurant = restaurantRepository.findById(foodDto.getRestaurantId()).orElseThrow(EntityNotFoundException::new);
+        Food food = new Food(foodDto.getName(),foodDto.getPrice(),foodDto.getCalorie(),foodDto.getAllergyList());
+        food.setRestaurant(restaurant);
         return foodRepository.save(food);
     }
 
     public void updateFood(FoodDto foodDto,Long foodId) {
+        Food food = new Food(foodDto.getName(),foodDto.getPrice(),foodDto.getCalorie(),foodDto.getAllergyList());
         Food foundFood = foodRepository.findById(foodId).orElseThrow(EntityNotFoundException::new);
-        Food food = new Food(foodDto.getName(),foodDto.getCategory(),foodDto.getPrice(),foodDto.getCalorie(),foodDto.getAllergyList());
-        List<SubFoodDto> subFoodDtoList = foodDto.getSubFoodList();
-        List<SubFood> subFoodList = new ArrayList<>();
-        for (SubFoodDto subFoodDto : subFoodDtoList) {
-            SubFood subFood = new SubFood(
-                    subFoodDto.getId(),
-                    subFoodDto.getName(),
-                    food
-            );
-            subFoodList.add(subFood);
-        }
-        food.setSubFoodList(subFoodList);
         foundFood.updateFood(food);
     }
 
