@@ -15,7 +15,7 @@ import java.util.List;
 public class Restaurant {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     private Long id;
 
     private String name;
@@ -28,7 +28,8 @@ public class Restaurant {
     @Builder.Default
     private List<Food> foodList = new ArrayList<>();
 
-    public Restaurant(String name, double latitude, double longitude) {
+    public Restaurant(Long id,String name, double latitude, double longitude) {
+        this.id = id;
         this.name = name;
         this.latitude = latitude;
         this.longitude = longitude;

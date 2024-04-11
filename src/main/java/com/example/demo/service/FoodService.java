@@ -55,13 +55,13 @@ public class FoodService {
 
     public Food postFood(FoodDto foodDto) {
         Restaurant restaurant = restaurantRepository.findById(foodDto.getRestaurantId()).orElseThrow(EntityNotFoundException::new);
-        Food food = new Food(foodDto.getName(),foodDto.getPrice(),foodDto.getCalorie(),foodDto.getAllergyList());
+        Food food = new Food(foodDto.getId(),foodDto.getName(),foodDto.getPrice(),foodDto.getCalorie(),foodDto.getAllergyList());
         food.setRestaurant(restaurant);
         return foodRepository.save(food);
     }
 
     public void updateFood(FoodDto foodDto,Long foodId) {
-        Food food = new Food(foodDto.getName(),foodDto.getPrice(),foodDto.getCalorie(),foodDto.getAllergyList());
+        Food food = new Food(foodDto.getId(),foodDto.getName(),foodDto.getPrice(),foodDto.getCalorie(),foodDto.getAllergyList());
         Food foundFood = foodRepository.findById(foodId).orElseThrow(EntityNotFoundException::new);
         foundFood.updateFood(food);
     }

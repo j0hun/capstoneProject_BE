@@ -11,6 +11,7 @@ import java.util.List;
 @AllArgsConstructor
 public class FoodDto {
 
+    private Long id;
     private String name;
     private Integer price;
     private Integer calorie;
@@ -18,6 +19,6 @@ public class FoodDto {
     private Long restaurantId;
 
     public static FoodDto toDto(Food food){
-        return new FoodDto(food.getName(), food.getPrice(),food.getCalorie(),food.getAllergyList(),food.getRestaurant().getId());
+        return new FoodDto(food.getId(),food.getName(), food.getPrice(),food.getCalorie(),food.getAllergyList(),food.getRestaurant().getId());
     }
 }

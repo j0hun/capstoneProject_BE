@@ -14,7 +14,7 @@ import java.util.List;
 public class Food {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     private Long id;
 
     private String name;
@@ -45,7 +45,8 @@ public class Food {
         restaurant.getFoodList().add(this);
     }
 
-    public Food(String name, Integer price, Integer calorie, List<Allergy> allergyList) {
+    public Food(Long id,String name, Integer price, Integer calorie, List<Allergy> allergyList) {
+        this.id = id;
         this.name = name;
         this.price = price;
         this.calorie = calorie;

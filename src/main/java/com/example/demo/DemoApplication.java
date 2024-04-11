@@ -8,7 +8,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 @OpenAPIDefinition(
 		servers = {
-				@Server(url = "https://test-jyhun.koyeb.app/",description = "Default Server url")
+				@Server(url = "https://jyhun-demo.azuremicroservices.io/",description = "Default Server url")
 		}
 )
 public class DemoApplication {
