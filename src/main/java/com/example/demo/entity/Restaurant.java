@@ -28,8 +28,7 @@ public class Restaurant {
     @Builder.Default
     private List<Food> foodList = new ArrayList<>();
 
-    public Restaurant(Long id,String name, double latitude, double longitude) {
-        this.id = id;
+    public Restaurant(String name, double latitude, double longitude) {
         this.name = name;
         this.latitude = latitude;
         this.longitude = longitude;

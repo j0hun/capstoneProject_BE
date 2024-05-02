@@ -16,16 +16,16 @@ public class RestaurantResponseDto {
     private String name;
     private double latitude;
     private double longitude;
-    private List<FoodDto> foodDtoList;
+    private List<FoodResponseDto> foodResponseDtoList;
 
     public static RestaurantResponseDto toDto(Restaurant restaurant){
-        List<FoodDto> foodDtoList = new ArrayList<>();
+        List<FoodResponseDto> foodResponseDtoList = new ArrayList<>();
         List<Food> foodList = restaurant.getFoodList();
         for (Food food : foodList) {
-            FoodDto foodDto = new FoodDto(food.getId(),food.getName(),food.getPrice(),food.getCalorie(),food.getAllergyList(),food.getRestaurant().getId());
-            foodDtoList.add(foodDto);
+            FoodResponseDto foodResponseDto = new FoodResponseDto(food.getId(),food.getName(),food.getPrice(),food.getCalorie(),food.getAllergyList(),food.getRestaurant().getName());
+            foodResponseDtoList.add(foodResponseDto);
         }
-        return new RestaurantResponseDto(restaurant.getId(),restaurant.getName(),restaurant.getLatitude(),restaurant.getLongitude(),foodDtoList);
+        return new RestaurantResponseDto(restaurant.getId(),restaurant.getName(),restaurant.getLatitude(),restaurant.getLongitude(), foodResponseDtoList);
     }
 
 

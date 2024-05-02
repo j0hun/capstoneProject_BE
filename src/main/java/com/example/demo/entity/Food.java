@@ -45,8 +45,7 @@ public class Food {
         restaurant.getFoodList().add(this);
     }
 
-    public Food(Long id,String name, Integer price, Integer calorie, List<Allergy> allergyList) {
-        this.id = id;
+    public Food(String name, Integer price, Integer calorie, List<Allergy> allergyList) {
         this.name = name;
         this.price = price;
         this.calorie = calorie;
