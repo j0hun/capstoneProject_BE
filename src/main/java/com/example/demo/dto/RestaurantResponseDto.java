@@ -22,7 +22,7 @@ public class RestaurantResponseDto {
         List<FoodResponseDto> foodResponseDtoList = new ArrayList<>();
         List<Food> foodList = restaurant.getFoodList();
         for (Food food : foodList) {
-            FoodResponseDto foodResponseDto = new FoodResponseDto(food.getId(),food.getName(),food.getPrice(),food.getCalorie(),food.getAllergyList(),food.getRestaurant().getName());
+            FoodResponseDto foodResponseDto = new FoodResponseDto(food.getId(),food.getName(),food.getPrice(),food.getCalorie(),food.getAllergyList(),food.getRestaurant().getId());
             foodResponseDtoList.add(foodResponseDto);
         }
         return new RestaurantResponseDto(restaurant.getId(),restaurant.getName(),restaurant.getLatitude(),restaurant.getLongitude(), foodResponseDtoList);

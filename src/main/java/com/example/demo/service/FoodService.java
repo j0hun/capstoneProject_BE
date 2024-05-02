@@ -54,7 +54,7 @@ public class FoodService {
     }
 
     public Food postFood(FoodResponseDto foodResponseDto) {
-        Restaurant restaurant = restaurantRepository.findByName(foodResponseDto.getRestaurantName()).orElseThrow(EntityNotFoundException::new);
+        Restaurant restaurant = restaurantRepository.findById(foodResponseDto.getRestaurantId()).orElseThrow(EntityNotFoundException::new);
         Food food = new Food(foodResponseDto.getName(), foodResponseDto.getPrice(), foodResponseDto.getCalorie(), foodResponseDto.getAllergyList());
         food.setRestaurant(restaurant);
         return foodRepository.save(food);

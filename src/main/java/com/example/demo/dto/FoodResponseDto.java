@@ -16,9 +16,9 @@ public class FoodResponseDto {
     private Integer price;
     private Integer calorie;
     private List<Allergy> allergyList;
-    private String restaurantName;
+    private Long restaurantId;
 
     public static FoodResponseDto toDto(Food food){
-        return new FoodResponseDto(food.getId(),food.getName(), food.getPrice(),food.getCalorie(),food.getAllergyList(),food.getRestaurant().getName());
+        return new FoodResponseDto(food.getId(),food.getName(), food.getPrice(),food.getCalorie(),food.getAllergyList(),food.getRestaurant().getId());
     }
 }

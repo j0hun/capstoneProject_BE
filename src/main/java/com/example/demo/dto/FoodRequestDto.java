@@ -14,6 +14,6 @@ public class FoodRequestDto {
     private Integer price;
     private Integer calorie;
     private List<Allergy> allergyList;
-    private String restaurantName;
+    private Long restaurantId;
 
 }
