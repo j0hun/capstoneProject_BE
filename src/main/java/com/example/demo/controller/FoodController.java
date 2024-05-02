@@ -20,10 +20,10 @@ public class FoodController {
     private final FoodService foodService;
 
     @GetMapping("/api/foodsByCondition")
-    public ResponseEntity<List<FoodDto>> getFoodsByCondition(@RequestParam("minPrice") Integer minPrice,
-                                                             @RequestParam("maxPrice") Integer maxPrice,
-                                                             @RequestParam("minCalories") Integer minCalories,
-                                                             @RequestParam("maxCalories") Integer maxCalories,
+    public ResponseEntity<List<FoodDto>> getFoodsByCondition(@RequestParam(value = "minPrice",required = false) Integer minPrice,
+                                                             @RequestParam(value = "maxPrice",required = false) Integer maxPrice,
+                                                             @RequestParam(value = "minCalories",required = false) Integer minCalories,
+                                                             @RequestParam(value = "maxCalories",required = false) Integer maxCalories,
                                                              @RequestParam(value = "allergies", required = false) String[] allergiesArray) {
         List<Allergy> allergies = new ArrayList<>();
         if (allergiesArray != null) {
