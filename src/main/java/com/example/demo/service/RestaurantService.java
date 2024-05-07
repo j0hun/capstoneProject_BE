@@ -1,7 +1,7 @@
 package com.example.demo.service;
 
-import com.example.demo.dto.RestaurantResponseDto;
-import com.example.demo.dto.RestaurantRequestDto;
+import com.example.demo.dto.RestaurantResponseDTO;
+import com.example.demo.dto.RestaurantRequestDTO;
 import com.example.demo.entity.Restaurant;
 import com.example.demo.repository.RestaurantRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -20,29 +20,29 @@ public class RestaurantService {
     private final RestaurantRepository restaurantRepository;
 
     @Transactional(readOnly = true)
-    public List<RestaurantResponseDto> getRestaurants(){
+    public List<RestaurantResponseDTO> getRestaurants(){
         List<Restaurant> restaurantList = restaurantRepository.findAll();
-        List<RestaurantResponseDto> restaurantDtoList = new ArrayList<>();
+        List<RestaurantResponseDTO> restaurantDTOList = new ArrayList<>();
         for (Restaurant restaurant : restaurantList) {
-            restaurantDtoList.add(RestaurantResponseDto.toDto(restaurant));
+            restaurantDTOList.add(RestaurantResponseDTO.toDTO(restaurant));
         }
-        return restaurantDtoList;
+        return restaurantDTOList;
     }
 
     @Transactional(readOnly = true)
-    public RestaurantResponseDto getRestaurant(Long restaurantId){
+    public RestaurantResponseDTO getRestaurant(Long restaurantId){
         Restaurant restaurant = restaurantRepository.findById(restaurantId).orElseThrow(EntityNotFoundException::new);
-        return RestaurantResponseDto.toDto(restaurant);
+        return RestaurantResponseDTO.toDTO(restaurant);
     }
 
-    public Restaurant postRestaurant(RestaurantRequestDto restaurantDto) {
-        Restaurant restaurant = restaurantDto.toEntity();
-        return restaurantRepository.save(restaurant);
+    public Long postRestaurant(RestaurantRequestDTO restaurantDTO) {
+        Restaurant restaurant = restaurantDTO.toEntity();
+        return restaurant.getId();
     }
 
-    public void updateRestaurant(RestaurantRequestDto restaurantDto, Long restaurantId){
+    public void updateRestaurant(RestaurantRequestDTO restaurantDTO, Long restaurantId){
         Restaurant foundRestaurant = restaurantRepository.findById(restaurantId).orElseThrow(EntityNotFoundException::new);
-        Restaurant restaurant = restaurantDto.toEntity();
+        Restaurant restaurant = restaurantDTO.toEntity();
         foundRestaurant.updateRestaurant(restaurant);
     }
 

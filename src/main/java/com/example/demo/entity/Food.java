@@ -8,8 +8,6 @@ import java.util.List;
 
 @Entity
 @Getter
-@Builder
-@AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Food {
 
@@ -29,7 +27,7 @@ public class Food {
     @Column(name = "allergy")
     private List<Allergy> allergyList;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "restaurant_id")
     private Restaurant restaurant;
 
@@ -45,6 +43,7 @@ public class Food {
         restaurant.getFoodList().add(this);
     }
 
+    @Builder
     public Food(String name, Integer price, Integer calorie, List<Allergy> allergyList) {
         this.name = name;
         this.price = price;

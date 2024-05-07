@@ -9,7 +9,7 @@ import java.util.List;
 
 @Getter
 @AllArgsConstructor
-public class FoodResponseDto {
+public class FoodResponseDTO {
 
     private Long id;
     private String name;
@@ -18,7 +18,7 @@ public class FoodResponseDto {
     private List<Allergy> allergyList;
     private Long restaurantId;
 
-    public static FoodResponseDto toDto(Food food){
-        return new FoodResponseDto(food.getId(),food.getName(), food.getPrice(),food.getCalorie(),food.getAllergyList(),food.getRestaurant().getId());
+    public static FoodResponseDTO toDTO(Food food){
+        return new FoodResponseDTO(food.getId(),food.getName(), food.getPrice(),food.getCalorie(),food.getAllergyList(),food.getRestaurant().getId());
     }
 }

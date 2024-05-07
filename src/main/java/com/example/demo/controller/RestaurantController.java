@@ -1,7 +1,7 @@
 package com.example.demo.controller;
 
-import com.example.demo.dto.RestaurantResponseDto;
-import com.example.demo.dto.RestaurantRequestDto;
+import com.example.demo.dto.RestaurantResponseDTO;
+import com.example.demo.dto.RestaurantRequestDTO;
 import com.example.demo.service.RestaurantService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -18,26 +18,26 @@ public class RestaurantController {
     private final RestaurantService restaurantService;
 
     @GetMapping
-    public ResponseEntity<List<RestaurantResponseDto>> getRestaurants(){
-        List<RestaurantResponseDto> restaurants = restaurantService.getRestaurants();
+    public ResponseEntity<List<RestaurantResponseDTO>> getRestaurants(){
+        List<RestaurantResponseDTO> restaurants = restaurantService.getRestaurants();
         return new ResponseEntity<>(restaurants, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<RestaurantResponseDto> getRestaurant(@PathVariable Long id){
-        RestaurantResponseDto restaurant = restaurantService.getRestaurant(id);
+    public ResponseEntity<RestaurantResponseDTO> getRestaurant(@PathVariable Long id){
+        RestaurantResponseDTO restaurant = restaurantService.getRestaurant(id);
         return new ResponseEntity<>(restaurant, HttpStatus.OK);
     }
 
     @PostMapping
-    public ResponseEntity<Void> postRestaurant(@RequestBody RestaurantRequestDto restaurantDto){
-        restaurantService.postRestaurant(restaurantDto);
+    public ResponseEntity<Void> postRestaurant(@RequestBody RestaurantRequestDTO restaurantDTO){
+        restaurantService.postRestaurant(restaurantDTO);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<Void> patchRestaurant(@PathVariable Long id, @RequestBody RestaurantRequestDto restaurantDto) {
-        restaurantService.updateRestaurant(restaurantDto,id);
+    public ResponseEntity<Void> patchRestaurant(@PathVariable Long id, @RequestBody RestaurantRequestDTO restaurantDTO) {
+        restaurantService.updateRestaurant(restaurantDTO,id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

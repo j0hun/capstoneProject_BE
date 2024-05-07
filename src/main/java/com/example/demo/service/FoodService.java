@@ -1,7 +1,7 @@
 package com.example.demo.service;
 
 import com.example.demo.constant.Allergy;
-import com.example.demo.dto.FoodResponseDto;
+import com.example.demo.dto.FoodResponseDTO;
 import com.example.demo.entity.Food;
 import com.example.demo.entity.Restaurant;
 import com.example.demo.repository.FoodRepository;
@@ -23,45 +23,45 @@ public class FoodService {
     private final RestaurantRepository restaurantRepository;
 
     @Transactional(readOnly = true)
-    public List<FoodResponseDto> getAllByPriceRangeAndAllergies(Integer minPrice, Integer maxPrice,
+    public List<FoodResponseDTO> getAllByPriceRangeAndAllergies(Integer minPrice, Integer maxPrice,
                                                                 Integer minCalories, Integer maxCalories,
                                                                 List<Allergy> allergies){
         List<Food> foodList =  foodRepository.findAllByPriceRangeAndByCaloriesRangeAndAllergiesNotContained(minPrice, maxPrice, minCalories, maxCalories,allergies);
-        List<FoodResponseDto> foodResponseDtoList = new ArrayList<>();
+        List<FoodResponseDTO> foodResponseDTOList = new ArrayList<>();
         for (Food food : foodList) {
-            FoodResponseDto foodResponseDto = FoodResponseDto.toDto(food);
-            foodResponseDtoList.add(foodResponseDto);
+            FoodResponseDTO foodResponseDTO = FoodResponseDTO.toDTO(food);
+            foodResponseDTOList.add(foodResponseDTO);
         }
-        return foodResponseDtoList;
+        return foodResponseDTOList;
     }
 
     @Transactional(readOnly = true)
-    public FoodResponseDto getFood(Long foodId) {
+    public FoodResponseDTO getFood(Long foodId) {
         Food food = foodRepository.findById(foodId).orElseThrow(EntityNotFoundException::new);
-        FoodResponseDto foodResponseDto = FoodResponseDto.toDto(food);
-        return foodResponseDto;
+        FoodResponseDTO foodResponseDTO = FoodResponseDTO.toDTO(food);
+        return foodResponseDTO;
     }
 
     @Transactional(readOnly = true)
-    public List<FoodResponseDto> getFoods() {
+    public List<FoodResponseDTO> getFoods() {
         List<Food> foodList = foodRepository.findAll();
-        List<FoodResponseDto> foodResponseDtoList = new ArrayList<>();
+        List<FoodResponseDTO> foodResponseDTOList = new ArrayList<>();
         for (Food food : foodList) {
-            FoodResponseDto foodResponseDto = FoodResponseDto.toDto(food);
-            foodResponseDtoList.add(foodResponseDto);
+            FoodResponseDTO foodResponseDTO = FoodResponseDTO.toDTO(food);
+            foodResponseDTOList.add(foodResponseDTO);
         }
-        return foodResponseDtoList;
+        return foodResponseDTOList;
     }
 
-    public Food postFood(FoodResponseDto foodResponseDto) {
-        Restaurant restaurant = restaurantRepository.findById(foodResponseDto.getRestaurantId()).orElseThrow(EntityNotFoundException::new);
-        Food food = new Food(foodResponseDto.getName(), foodResponseDto.getPrice(), foodResponseDto.getCalorie(), foodResponseDto.getAllergyList());
+    public Long postFood(FoodResponseDTO foodResponseDTO) {
+        Restaurant restaurant = restaurantRepository.findById(foodResponseDTO.getRestaurantId()).orElseThrow(EntityNotFoundException::new);
+        Food food = new Food(foodResponseDTO.getName(), foodResponseDTO.getPrice(), foodResponseDTO.getCalorie(), foodResponseDTO.getAllergyList());
         food.setRestaurant(restaurant);
-        return foodRepository.save(food);
+        return food.getId();
     }
 
-    public void updateFood(FoodResponseDto foodResponseDto, Long foodId) {
-        Food food = new Food(foodResponseDto.getName(), foodResponseDto.getPrice(), foodResponseDto.getCalorie(), foodResponseDto.getAllergyList());
+    public void updateFood(FoodResponseDTO foodResponseDTO, Long foodId) {
+        Food food = new Food(foodResponseDTO.getName(), foodResponseDTO.getPrice(), foodResponseDTO.getCalorie(), foodResponseDTO.getAllergyList());
         Food foundFood = foodRepository.findById(foodId).orElseThrow(EntityNotFoundException::new);
         foundFood.updateFood(food);
     }

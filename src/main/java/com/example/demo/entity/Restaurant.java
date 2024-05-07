@@ -8,9 +8,6 @@ import java.util.List;
 
 @Entity
 @Getter
-@Setter
-@AllArgsConstructor
-@Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Restaurant {
 
@@ -25,9 +22,12 @@ public class Restaurant {
     private double longitude;
 
     @OneToMany(mappedBy = "restaurant")
-    @Builder.Default
     private List<Food> foodList = new ArrayList<>();
 
+    @OneToMany(mappedBy = "restaurant")
+    private List<Review> reviewList = new ArrayList<>();
+
+    @Builder
     public Restaurant(String name, double latitude, double longitude) {
         this.name = name;
         this.latitude = latitude;

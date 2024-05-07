@@ -6,7 +6,7 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public class RestaurantRequestDto {
+public class RestaurantRequestDTO {
 
     private String name;
     private double latitude;
