@@ -9,6 +9,7 @@ import lombok.Setter;
 public class ReviewRequestDTO {
 
     private String content;
+    private String name;
 
     public Review toEntity(){
         return new Review(content);
