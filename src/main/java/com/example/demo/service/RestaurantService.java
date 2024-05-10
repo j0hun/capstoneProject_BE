@@ -37,6 +37,7 @@ public class RestaurantService {
 
     public Long postRestaurant(RestaurantRequestDTO restaurantDTO) {
         Restaurant restaurant = restaurantDTO.toEntity();
+        restaurantRepository.save(restaurant);
         return restaurant.getId();
     }
 

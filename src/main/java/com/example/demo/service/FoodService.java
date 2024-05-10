@@ -57,6 +57,7 @@ public class FoodService {
         Restaurant restaurant = restaurantRepository.findById(foodResponseDTO.getRestaurantId()).orElseThrow(EntityNotFoundException::new);
         Food food = new Food(foodResponseDTO.getName(), foodResponseDTO.getPrice(), foodResponseDTO.getCalorie(), foodResponseDTO.getAllergyList());
         food.setRestaurant(restaurant);
+        foodRepository.save(food);
         return food.getId();
     }
 

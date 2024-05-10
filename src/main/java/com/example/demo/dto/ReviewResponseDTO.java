@@ -10,9 +10,10 @@ public class ReviewResponseDTO {
 
     private Long id;
     private String content;
+    private String memberName;
 
     public static ReviewResponseDTO toDTO(Review review){
-        return new ReviewResponseDTO(review.getId(), review.getContent());
+        return new ReviewResponseDTO(review.getId(), review.getContent(),review.getMember().getName());
     }
 
 }
