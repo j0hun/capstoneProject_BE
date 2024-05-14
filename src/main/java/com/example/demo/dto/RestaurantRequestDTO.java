@@ -9,11 +9,12 @@ import lombok.Getter;
 public class RestaurantRequestDTO {
 
     private String name;
+    private String category;
     private double latitude;
     private double longitude;
 
     public Restaurant toEntity() {
-        return new Restaurant(this.name,this.latitude,this.longitude);
+        return new Restaurant(this.name,this.category,this.latitude,this.longitude);
     }
 
 }

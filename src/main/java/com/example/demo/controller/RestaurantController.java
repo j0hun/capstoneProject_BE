@@ -29,6 +29,12 @@ public class RestaurantController {
         return new ResponseEntity<>(restaurant, HttpStatus.OK);
     }
 
+    @GetMapping("/category")
+    public ResponseEntity<List<RestaurantResponseDTO>> getRestaurantByCategory(@RequestParam String category) {
+        List<RestaurantResponseDTO> restaurants = restaurantService.getRestaurantByCategory(category);
+        return new ResponseEntity<>(restaurants,HttpStatus.OK);
+    }
+
     @PostMapping
     public ResponseEntity<Void> postRestaurant(@RequestBody RestaurantRequestDTO restaurantDTO){
         restaurantService.postRestaurant(restaurantDTO);

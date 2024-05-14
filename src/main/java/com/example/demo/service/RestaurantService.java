@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -33,6 +34,12 @@ public class RestaurantService {
     public RestaurantResponseDTO getRestaurant(Long restaurantId){
         Restaurant restaurant = restaurantRepository.findById(restaurantId).orElseThrow(EntityNotFoundException::new);
         return RestaurantResponseDTO.toDTO(restaurant);
+    }
+
+    @Transactional(readOnly = true)
+    public List<RestaurantResponseDTO> getRestaurantByCategory(String category) {
+        List<Restaurant> restaurantList = restaurantRepository.findAllByCategory(category);
+        return restaurantList.stream().map(restaurant -> RestaurantResponseDTO.toDTO(restaurant)).collect(Collectors.toList());
     }
 
     public Long postRestaurant(RestaurantRequestDTO restaurantDTO) {

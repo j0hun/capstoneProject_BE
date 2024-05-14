@@ -17,6 +17,8 @@ public class Restaurant {
 
     private String name;
 
+    private String category;
+
     private double latitude;
 
     private double longitude;
@@ -24,18 +26,17 @@ public class Restaurant {
     @OneToMany(mappedBy = "restaurant")
     private List<Food> foodList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "restaurant")
-    private List<Review> reviewList = new ArrayList<>();
-
     @Builder
-    public Restaurant(String name, double latitude, double longitude) {
+    public Restaurant(String name, String category,double latitude, double longitude) {
         this.name = name;
+        this.category = category;
         this.latitude = latitude;
         this.longitude = longitude;
     }
 
     public void updateRestaurant(Restaurant restaurant){
         this.name = restaurant.getName();
+        this.category = restaurant.getCategory();
         this.latitude = restaurant.getLatitude();
         this.longitude = restaurant.getLongitude();
     }
