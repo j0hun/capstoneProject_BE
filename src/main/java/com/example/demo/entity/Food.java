@@ -1,10 +1,10 @@
 package com.example.demo.entity;
 
-import com.example.demo.constant.Allergy;
 import jakarta.persistence.*;
-import lombok.*;
-
-import java.util.List;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Getter
@@ -21,12 +21,6 @@ public class Food {
 
     private Integer calorie;
 
-    @ElementCollection(targetClass = Allergy.class)
-    @CollectionTable(name = "food_allergies", joinColumns = @JoinColumn(name = "food_id"))
-    @Enumerated(EnumType.STRING)
-    @Column(name = "allergy")
-    private List<Allergy> allergyList;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "restaurant_id")
     private Restaurant restaurant;
@@ -35,7 +29,6 @@ public class Food {
         this.name = food.getName();
         this.price = food.getPrice();
         this.calorie = food.getCalorie();
-        this.allergyList = food.getAllergyList();
     }
 
     public void setRestaurant(Restaurant restaurant) {
@@ -44,11 +37,10 @@ public class Food {
     }
 
     @Builder
-    public Food(String name, Integer price, Integer calorie, List<Allergy> allergyList) {
+    public Food(String name, Integer price, Integer calorie) {
         this.name = name;
         this.price = price;
         this.calorie = calorie;
-        this.allergyList = allergyList;
     }
 
 }

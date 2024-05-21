@@ -14,6 +14,7 @@ public class RestaurantResponseDTO {
 
     private Long id;
     private String name;
+    private String location;
     private double latitude;
     private double longitude;
     private List<FoodResponseDTO> foodResponseDTOList;
@@ -25,6 +26,6 @@ public class RestaurantResponseDTO {
             FoodResponseDTO foodResponseDTO = FoodResponseDTO.toDTO(food);
             foodResponseDTOList.add(foodResponseDTO);
         }
-        return new RestaurantResponseDTO(restaurant.getId(), restaurant.getName(), restaurant.getLatitude(), restaurant.getLongitude(), foodResponseDTOList);
+        return new RestaurantResponseDTO(restaurant.getId(), restaurant.getName(), restaurant.getLocation(), restaurant.getLatitude(), restaurant.getLongitude(), foodResponseDTOList);
     }
 }

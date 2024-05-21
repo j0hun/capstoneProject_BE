@@ -37,8 +37,8 @@ public class RestaurantService {
     }
 
     @Transactional(readOnly = true)
-    public List<RestaurantResponseDTO> getRestaurantByCategory(String category) {
-        List<Restaurant> restaurantList = restaurantRepository.findAllByCategory(category);
+    public List<RestaurantResponseDTO> getRestaurantByFilter(String category,String location) {
+        List<Restaurant> restaurantList = restaurantRepository.findAllByCategoryAAndLocation(category,location);
         return restaurantList.stream().map(restaurant -> RestaurantResponseDTO.toDTO(restaurant)).collect(Collectors.toList());
     }
 

@@ -29,9 +29,10 @@ public class RestaurantController {
         return new ResponseEntity<>(restaurant, HttpStatus.OK);
     }
 
-    @GetMapping("/category")
-    public ResponseEntity<List<RestaurantResponseDTO>> getRestaurantByCategory(@RequestParam String category) {
-        List<RestaurantResponseDTO> restaurants = restaurantService.getRestaurantByCategory(category);
+    @GetMapping("/filter")
+    public ResponseEntity<List<RestaurantResponseDTO>> getRestaurantByCategory(@RequestParam String category,
+                                                                               @RequestParam String location) {
+        List<RestaurantResponseDTO> restaurants = restaurantService.getRestaurantByFilter(category,location);
         return new ResponseEntity<>(restaurants,HttpStatus.OK);
     }
 
