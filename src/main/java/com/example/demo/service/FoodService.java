@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import com.example.demo.dto.FoodRequestDTO;
 import com.example.demo.dto.FoodResponseDTO;
 import com.example.demo.entity.Food;
 import com.example.demo.entity.Restaurant;
@@ -51,16 +52,16 @@ public class FoodService {
         return foodResponseDTOList;
     }
 
-    public Long postFood(FoodResponseDTO foodResponseDTO) {
-        Restaurant restaurant = restaurantRepository.findById(foodResponseDTO.getRestaurantId()).orElseThrow(EntityNotFoundException::new);
-        Food food = new Food(foodResponseDTO.getName(), foodResponseDTO.getPrice(), foodResponseDTO.getCalorie());
+    public Long postFood(FoodRequestDTO foodRequestDTO) {
+        Restaurant restaurant = restaurantRepository.findById(foodRequestDTO.getRestaurantId()).orElseThrow(EntityNotFoundException::new);
+        Food food = new Food(foodRequestDTO.getName(), foodRequestDTO.getPrice(), foodRequestDTO.getCalorie());
         food.setRestaurant(restaurant);
         foodRepository.save(food);
         return food.getId();
     }
 
-    public void updateFood(FoodResponseDTO foodResponseDTO, Long foodId) {
-        Food food = new Food(foodResponseDTO.getName(), foodResponseDTO.getPrice(), foodResponseDTO.getCalorie());
+    public void updateFood(FoodRequestDTO foodRequestDTO, Long foodId) {
+        Food food = new Food(foodRequestDTO.getName(), foodRequestDTO.getPrice(), foodRequestDTO.getCalorie());
         Food foundFood = foodRepository.findById(foodId).orElseThrow(EntityNotFoundException::new);
         foundFood.updateFood(food);
     }

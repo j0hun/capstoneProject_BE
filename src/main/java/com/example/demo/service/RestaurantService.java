@@ -1,8 +1,11 @@
 package com.example.demo.service;
 
-import com.example.demo.dto.RestaurantResponseDTO;
+import com.example.demo.dto.FoodResponseDTO;
 import com.example.demo.dto.RestaurantRequestDTO;
+import com.example.demo.dto.RestaurantResponseDTO;
+import com.example.demo.entity.Food;
 import com.example.demo.entity.Restaurant;
+import com.example.demo.repository.FoodRepository;
 import com.example.demo.repository.RestaurantRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +22,7 @@ import java.util.stream.Collectors;
 public class RestaurantService {
 
     private final RestaurantRepository restaurantRepository;
+    private final FoodRepository foodRepository;
 
     @Transactional(readOnly = true)
     public List<RestaurantResponseDTO> getRestaurants(){
@@ -37,9 +41,16 @@ public class RestaurantService {
     }
 
     @Transactional(readOnly = true)
-    public List<RestaurantResponseDTO> getRestaurantByFilter(String category,String location) {
-        List<Restaurant> restaurantList = restaurantRepository.findAllByCategoryAAndLocation(category,location);
-        return restaurantList.stream().map(restaurant -> RestaurantResponseDTO.toDTO(restaurant)).collect(Collectors.toList());
+    public List<RestaurantResponseDTO> getRestaurantByFilter(String category,String location,Integer maxPrice) {
+        List<Restaurant> restaurantList = restaurantRepository.findAllByCategoryAndLocation(category,location);
+        List<RestaurantResponseDTO> restaurantResponseDTOList = new ArrayList<>();
+        for (Restaurant restaurant : restaurantList) {
+            List<Food> foodList = foodRepository.findByPriceLessThanEqualAndRestaurantId(maxPrice, restaurant.getId());
+            List<FoodResponseDTO> foodResponseDTOList = foodList.stream().map(food -> FoodResponseDTO.toDTO(food)).collect(Collectors.toList());
+            RestaurantResponseDTO restaurantResponseDTO = new RestaurantResponseDTO(restaurant.getId(), restaurant.getName(), restaurant.getLocation(), restaurant.getCategory(), restaurant.getLatitude(), restaurant.getLongitude(), foodResponseDTOList);
+            restaurantResponseDTOList.add(restaurantResponseDTO);
+        }
+        return restaurantResponseDTOList;
     }
 
     public Long postRestaurant(RestaurantRequestDTO restaurantDTO) {

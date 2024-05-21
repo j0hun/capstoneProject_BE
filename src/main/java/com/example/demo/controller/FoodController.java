@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.dto.FoodRequestDTO;
 import com.example.demo.dto.FoodResponseDTO;
 import com.example.demo.service.FoodService;
 import lombok.RequiredArgsConstructor;
@@ -39,14 +40,14 @@ public class FoodController {
     }
 
     @PostMapping
-    public ResponseEntity<Void> postFood(@RequestBody FoodResponseDTO foodResponseDTO){
-        foodService.postFood(foodResponseDTO);
+    public ResponseEntity<Void> postFood(@RequestBody FoodRequestDTO foodRequestDTO){
+        foodService.postFood(foodRequestDTO);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @PutMapping("/{foodId}")
-    public ResponseEntity<Void> putFood(@PathVariable Long foodId, @RequestBody FoodResponseDTO foodResponseDTO) {
-        foodService.updateFood(foodResponseDTO,foodId);
+    public ResponseEntity<Void> putFood(@PathVariable Long foodId, @RequestBody FoodRequestDTO foodRequestDTO) {
+        foodService.updateFood(foodRequestDTO,foodId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

@@ -17,9 +17,9 @@ public class Restaurant {
 
     private String name;
 
-    private String location;
-
     private String category;
+
+    private String location;
 
     private double latitude;
 

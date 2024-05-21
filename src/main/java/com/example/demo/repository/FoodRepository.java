@@ -13,7 +13,8 @@ public interface FoodRepository extends JpaRepository<Food,Long> {
 
     @Query("SELECT f FROM Food f " +
             "WHERE f.price BETWEEN :minPrice AND :maxPrice " +
-            "AND f.calorie BETWEEN :minCalories AND :maxCalories ")
+            "AND f.calorie BETWEEN :minCalories AND :maxCalories "
+    )
     List<Food> findAllByPriceRangeAndByCaloriesRangeAndAllergiesNotContained(
             @Param("minPrice") Integer minPrice,
             @Param("maxPrice") Integer maxPrice,
@@ -21,4 +22,6 @@ public interface FoodRepository extends JpaRepository<Food,Long> {
             @Param("maxCalories") Integer maxCalories
     );
 
+    @Query("SELECT f FROM Food f WHERE f.price <= :maxPrice AND f.restaurant.id = :restaurantId")
+    List<Food> findByPriceLessThanEqualAndRestaurantId(@Param("maxPrice") Integer maxPrice, @Param("restaurantId") Long restaurantId);
 }

@@ -31,8 +31,9 @@ public class RestaurantController {
 
     @GetMapping("/filter")
     public ResponseEntity<List<RestaurantResponseDTO>> getRestaurantByCategory(@RequestParam String category,
-                                                                               @RequestParam String location) {
-        List<RestaurantResponseDTO> restaurants = restaurantService.getRestaurantByFilter(category,location);
+                                                                               @RequestParam String location,
+                                                                               @RequestParam Integer maxPrice) {
+        List<RestaurantResponseDTO> restaurants = restaurantService.getRestaurantByFilter(category,location,maxPrice);
         return new ResponseEntity<>(restaurants,HttpStatus.OK);
     }
 
